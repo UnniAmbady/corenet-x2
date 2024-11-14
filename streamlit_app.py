@@ -12,6 +12,23 @@ st.write( "This is a simple chatbot . ")
 # via `st.secrets`, see https://docs.streamlit.io/develop/concepts/connections/secrets-management
 #openai_api_key = st.text_input("OpenAI API Key", type="password")
 
+# Global variable
+query = "Create a Question with Answer."
+def new_query(query):
+    # Call OpenAI's API to get a response from ChatGPT
+    response = openai.Completion.create(
+        engine="text-davinci-003",  # Specify the GPT model you want to use
+        prompt=query,
+        max_tokens=150  # Adjust the max tokens according to your needs
+    )
+    # Extract and return the response text
+    return response.choices[0].text.strip()
+# End of Function
+
+
+
+
+
 openai_api_key = st.secrets["openai"]["secret_key"]
 client = OpenAI(api_key=openai_api_key)
 if not client:
@@ -31,7 +48,13 @@ else:
 
     # Create a chat input field to allow the user to enter a message. This will display
     # automatically at the bottom of the page.
-    if prompt := st.chat_input("What is up?"):
+    
+
+    if st.button("Submit"):
+        # Call the `new_query` function with the global `query` variable
+        prompt = new_query(query)
+    
+    elif prompt := st.chat_input("What is up?"):
 
         # Store and display the current prompt.
         st.session_state.messages.append({"role": "user", "content": prompt})
