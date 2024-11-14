@@ -15,6 +15,7 @@ st.write( "This is a simple chatbot . ")
 # Global variable
 query = "Create a Question with Answer."
 def new_query(query):
+    st.write(query)
     # Call OpenAI's API to get a response from ChatGPT
     response = openai.Completion.create(
         engine="text-davinci-003",  # Specify the GPT model you want to use
