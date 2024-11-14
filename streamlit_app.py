@@ -16,15 +16,7 @@ st.write( "This is a simple chatbot . ")
 query = "Create a Question with Answer."
 
 def new_query(query):
-    st.write(query)
-    # Call OpenAI's API to get a response from ChatGPT
-    response = openai.Completion.create(
-        engine="text-davinci-003",  # Specify the GPT model you want to use
-        prompt=query,
-        max_tokens=150  # Adjust the max tokens according to your needs
-    )
-    # Extract and return the response text
-    return response.choices[0].text.strip()
+    return query
 # End of Function
 
 def store_n_display(prompt):
@@ -78,6 +70,7 @@ else:
     if st.button("Submit"):
         # Call the `new_query` function with the global `query` variable
         prompt = new_query(query)
+        st.write(prompt)
         store_n_display(prompt)
     
     elif prompt := st.chat_input("What is up?"):
