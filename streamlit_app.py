@@ -14,6 +14,7 @@ st.write( "This is a simple chatbot . ")
 
 # Global variable
 query = "Create a Question with Answer."
+
 def new_query(query):
     st.write(query)
     # Call OpenAI's API to get a response from ChatGPT
@@ -34,7 +35,7 @@ def store_n_display(prompt):
 
         # Generate a response using the OpenAI API.
         stream = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",
             messages=[
                 {"role": m["role"], "content": m["content"]}
                 for m in st.session_state.messages
@@ -80,5 +81,6 @@ else:
         store_n_display(prompt)
     
     elif prompt := st.chat_input("What is up?"):
+        st.write(prompt)
         store_n_display(prompt)
 
